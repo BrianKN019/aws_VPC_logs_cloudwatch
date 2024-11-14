@@ -35,7 +35,6 @@ graph LR
     E --> F[Set Up VPC Peering Connection]
     F --> G[Update Route Tables for Communication]
     G --> H[Generate Network Traffic (Ping Test)]
-
 ```
 
 
