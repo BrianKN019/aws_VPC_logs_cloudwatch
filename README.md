@@ -20,11 +20,11 @@ In this project, I built a multi-VPC setup with **two isolated networks** for te
 
 ---
 
-🏗️ VPC Architecture: A Creative View
+## 🏗️ VPC Architecture: A Creative View
 To begin, I created two VPCs in AWS, each with distinct IP ranges (10.1.0.0/16 for VPC 1 and 10.2.0.0/16 for VPC 2) to avoid routing conflicts. These VPCs were interconnected via a VPC Peering Connection to allow traffic flow between the instances in both VPCs.
 
 Network Diagram
-```mermaid
+```
 graph TB
     A[Create VPC 1 (10.1.0.0/16)] --> B[Create VPC 2 (10.2.0.0/16)]
     B --> C[Set Up Subnets in Each VPC]
@@ -35,10 +35,10 @@ graph TB
     G --> H[Run Ping Test for Connectivity]
 ```
 
-🔍 Monitoring Network Traffic with VPC Flow Logs
+## 🔍 Monitoring Network Traffic with VPC Flow Logs
 Once the architecture was in place, I enabled VPC Flow Logs to capture detailed information about the network traffic. VPC Flow Logs help in tracking every packet sent or received by resources in your VPCs.
 
-📊 Sample Flow Log
+## 📊 Sample Flow Log
 Flow logs capture:
 
 Source & destination IPs
@@ -55,7 +55,7 @@ pie
 ```
 
 
-🛠️ IAM Role Setup for Log Management
+## 🛠️ IAM Role Setup for Log Management
 To ensure only authorized services had access to the logs, I configured IAM roles and policies. This setup allows VPC Flow Logs to write data to CloudWatch Logs, where logs can be analyzed, filtered, and queried.
 
 Sequence of Actions
@@ -69,7 +69,7 @@ sequenceDiagram
     VPCLogs->>IAM: Assume IAM Role
     IAM->>CloudWatch: Write Logs
 ```
-💻 Ping Test & Troubleshooting
+## 💻 Ping Test & Troubleshooting
 I performed ping tests to check network connectivity between EC2 instances in both VPCs. Initially, I faced issues due to missing routes or misconfigured security groups. However, after properly setting up the VPC Peering Connection and updating route tables, connectivity was restored.
 
 Problem Diagnosed:
@@ -87,10 +87,10 @@ filter action="REJECT"
 | limit 10
 ```
 
-🕵️‍♂️ Final Troubleshooting Insights
+## 🕵️‍♂️ Final Troubleshooting Insights
 I analyzed the flow logs to find that certain IP addresses were repeatedly rejected. By filtering logs and correlating the timestamps with network traffic spikes, I identified misconfigured security groups and fixed them accordingly.
 
-🌟 Conclusion
+## 🌟 Conclusion
 This project allowed me to fully explore the power of VPC Flow Logs and CloudWatch Logs Insights for traffic monitoring and troubleshooting. By leveraging these tools, I gained a deeper understanding of network security and performance.
 
 VPC Flow Logs provided detailed visibility into network traffic.
@@ -110,7 +110,7 @@ flowchart TD
 ```
 
 
-🚀 What's Next?
+##  🚀 What's Next?
 Now that this monitoring setup is complete, the next steps could involve:
 
 Automating log analysis using AWS Lambda.
