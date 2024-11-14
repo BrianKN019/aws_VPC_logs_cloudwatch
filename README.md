@@ -28,15 +28,16 @@ To begin, I created two VPCs in AWS, each with distinct IP ranges (`10.0.0.0/16`
 
 ```mermaid
 graph LR
-    A[Create VPC 1 (CIDR: 10.0.0.0/16)] --> B[Create VPC 2 (CIDR: 192.168.0.0/16)]
+    A[Create VPC 1 (CIDR: 10.1.0.0/16)] --> B[Create VPC 2 (CIDR: 10.2.0.0/16)]
     B --> C[Launch Subnets in VPC 1 & VPC 2]
     C --> D[Launch EC2 Instances in Both VPCs]
     D --> E[Configure Security Groups (Allow ICMP from anywhere)]
     E --> F[Set Up VPC Peering Connection]
     F --> G[Update Route Tables for Communication]
     G --> H[Generate Network Traffic (Ping Test)]
-
 ```
+
+
 🔍 Monitoring Network Traffic with VPC Flow Logs
 Once the architecture was in place, I enabled VPC Flow Logs to capture detailed information about the network traffic. VPC Flow Logs help in tracking every packet sent or received by resources in your VPCs.
 
