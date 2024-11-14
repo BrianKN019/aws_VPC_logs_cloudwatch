@@ -20,23 +20,20 @@ In this project, I built a multi-VPC setup with **two isolated networks** for te
 
 ---
 
-## 🏗️ VPC Architecture: A Creative View
+🏗️ VPC Architecture: A Creative View
+To begin, I created two VPCs in AWS, each with distinct IP ranges (10.1.0.0/16 for VPC 1 and 10.2.0.0/16 for VPC 2) to avoid routing conflicts. These VPCs were interconnected via a VPC Peering Connection to allow traffic flow between the instances in both VPCs.
 
-To begin, I created two VPCs in AWS, each with distinct IP ranges (`10.0.0.0/16` for VPC 1 and `192.168.0.0/16` for VPC 2) to avoid routing conflicts. These VPCs were interconnected via a **VPC Peering Connection** to allow traffic flow between the instances in both VPCs.
-
-### Network Diagram
-
+Network Diagram
 ```mermaid
-graph LR
-    A[Create VPC 1 (CIDR: 10.1.0.0/16)] --> B[Create VPC 2 (CIDR: 10.2.0.0/16)]
-    B --> C[Launch Subnets in VPC 1 & VPC 2]
-    C --> D[Launch EC2 Instances in Both VPCs]
-    D --> E[Configure Security Groups (Allow ICMP from anywhere)]
-    E --> F[Set Up VPC Peering Connection]
-    F --> G[Update Route Tables for Communication]
-    G --> H[Generate Network Traffic (Ping Test)]
+graph TB
+    A[Create VPC 1 (10.1.0.0/16)] --> B[Create VPC 2 (10.2.0.0/16)]
+    B --> C[Set Up Subnets in Each VPC]
+    C --> D[Deploy EC2 Instances]
+    D --> E[Configure Security Groups for ICMP]
+    E --> F[Establish VPC Peering]
+    F --> G[Update Route Tables]
+    G --> H[Run Ping Test for Connectivity]
 ```
-
 
 🔍 Monitoring Network Traffic with VPC Flow Logs
 Once the architecture was in place, I enabled VPC Flow Logs to capture detailed information about the network traffic. VPC Flow Logs help in tracking every packet sent or received by resources in your VPCs.
