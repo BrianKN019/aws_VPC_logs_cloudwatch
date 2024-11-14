@@ -24,15 +24,78 @@ In this project, I built a multi-VPC setup with **two isolated networks** for te
 To begin, I created two VPCs in AWS, each with distinct IP ranges (10.1.0.0/16 for VPC 1 and 10.2.0.0/16 for VPC 2) to avoid routing conflicts. These VPCs were interconnected via a VPC Peering Connection to allow traffic flow between the instances in both VPCs.
 
 Network Diagram
-```
-graph TB
-    A[Create VPC 1 (10.1.0.0/16)] --> B[Create VPC 2 (10.2.0.0/16)]
-    B --> C[Set Up Subnets in Each VPC]
-    C --> D[Deploy EC2 Instances]
-    D --> E[Configure Security Groups for ICMP]
-    E --> F[Establish VPC Peering]
-    F --> G[Update Route Tables]
-    G --> H[Run Ping Test for Connectivity]
+```sql
++-------------------+      +-------------------+
+|                   |      |                   |
+|  Create VPC 1     | ---> |  Create VPC 2     |
+|  (CIDR: 10.1.0.0/16)    |  (CIDR: 10.2.0.0/16)|
+|                   |      |                   |
++-------------------+      +-------------------+
+
+           |
+           v
+
++-------------------+     +-------------------+
+|                   |     |                   |
+| Launch Subnets in | --->|  Launch Subnets in|
+|       VPC 1       |     |       VPC 2       |
+|                   |     |                   |
++-------------------+     +-------------------+
+
+           |
+           v
+
++-------------------+
+|                   |
+|  Launch EC2       |
+| Instances in Both |
+|       VPCs        |
+|                   |
++-------------------+
+
+           |
+           v
+
++-------------------+
+|                   |
+| Configure Security|
+| Groups (Allow ICMP|
+| from Anywhere)    |
+|                   |
++-------------------+
+
+           |
+           v
+
++-------------------+
+|                   |
+| Set Up VPC        |
+| Peering Connection|
+|                   |
++-------------------+
+
+           |
+           v
+
++-------------------+
+|                   |
+| Update Route      |
+| Tables for        |
+| Communication     |
+|                   |
++-------------------+
+
+           |
+           v
+
++-------------------+
+|                   |
+| Generate Network  |
+| Traffic (Ping     |
+| Test)             |
+|                   |
++-------------------+
+
 ```
 
 ## 🔍 Monitoring Network Traffic with VPC Flow Logs
