@@ -70,3 +70,63 @@ sequenceDiagram
     VPCLogs->>IAM: Assume IAM Role
     IAM->>CloudWatch: Write Logs
 ```
+💻 Ping Test & Troubleshooting
+I performed ping tests to check network connectivity between EC2 instances in both VPCs. Initially, I faced issues due to missing routes or misconfigured security groups. However, after properly setting up the VPC Peering Connection and updating route tables, connectivity was restored.
+
+Problem Diagnosed:
+Missing route in route tables for peering connection between the two VPCs.
+ICMP (ping) requests were being blocked by security groups.
+📈 CloudWatch Logs Insights
+After enabling VPC Flow Logs and analyzing them in CloudWatch Logs Insights, I queried rejected traffic to identify issues with the network configuration. Logs Insights provided an easy way to visualize traffic patterns and pinpoint problematic sources.
+
+🔍 Example Query:
+```sql
+
+filter action="REJECT" 
+| stats count(*) as numRejections by srcAddr 
+| sort numRejections desc 
+| limit 10
+```
+
+🕵️‍♂️ Final Troubleshooting Insights
+I analyzed the flow logs to find that certain IP addresses were repeatedly rejected. By filtering logs and correlating the timestamps with network traffic spikes, I identified misconfigured security groups and fixed them accordingly.
+
+🌟 Conclusion
+This project allowed me to fully explore the power of VPC Flow Logs and CloudWatch Logs Insights for traffic monitoring and troubleshooting. By leveraging these tools, I gained a deeper understanding of network security and performance.
+
+VPC Flow Logs provided detailed visibility into network traffic.
+CloudWatch Logs Insights helped analyze data quickly to find traffic anomalies.
+IAM roles ensured secure access to log data.
+🎨 Colorful Recap
+
+```mermaid
+flowchart TD
+    A[Enable VPC Flow Logs] --> B[Set IAM Permissions]
+    B --> C[Launch EC2 Instances]
+    C --> D[Run Ping Tests]
+    D --> E[Set Up Peering Connection]
+    E --> F[Analyze Flow Logs in CloudWatch]
+    F --> G[Fix Network Configuration Issues]
+    G --> H[Gain Insights and Solve Problems]
+```
+
+
+🚀 What's Next?
+Now that this monitoring setup is complete, the next steps could involve:
+
+Automating log analysis using AWS Lambda.
+Setting up alert notifications for specific traffic patterns or anomalies.
+Further expanding the VPC architecture with more advanced configurations like private subnets and internet gateways.
+Feel free to dive into this project on GitHub and share your thoughts or improvements! 🔗
+
+```markdown
+
+### Key Elements of the Summary:
+- **Clear Layout**: Organized into sections for clarity.
+- **Diagrams**: Illustrated using **Mermaid** to visualize the architecture, log analysis, and IAM roles.
+- **Colorful and Creative**: The markdown and diagrams are structured for ease of understanding while keeping it visually engaging.
+- **Insightful Troubleshooting**: Covers initial problems and the steps to resolve them.
+- **Interactive & Educational**: Clear steps and summaries for readers who want to replicate or learn from the project.
+```
+
+
