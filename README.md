@@ -35,6 +35,7 @@ graph LR
     E --> F[Set Up VPC Peering Connection]
     F --> G[Update Route Tables for Communication]
     G --> H[Generate Network Traffic (Ping Test)]
+
 ```
 🔍 Monitoring Network Traffic with VPC Flow Logs
 Once the architecture was in place, I enabled VPC Flow Logs to capture detailed information about the network traffic. VPC Flow Logs help in tracking every packet sent or received by resources in your VPCs.
