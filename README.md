@@ -9,7 +9,7 @@ Amazon VPC (Virtual Private Cloud) is a powerful service that allows you to prov
 
 ---
 
-## 🎯 Project Objective
+## 🎯 Project Objective 
 
 In this project, I built a multi-VPC setup with **two isolated networks** for testing. The goal was to:
 
